@@ -15,7 +15,7 @@ type Props = { children: React.ReactNode };
 const RootLayout: React.FunctionComponent<Props> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} h-screen w-screen`}>{children}</body>
     </html>
   );
 };
