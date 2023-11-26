@@ -3,8 +3,8 @@
 import { Game, Scale, Types } from 'phaser';
 import React from 'react';
 
-import { gameHeight, gameWidth } from './config';
-import { MainScene } from './scenes';
+import { GAME_HEIGHT, GAME_WIDTH } from './constants';
+import { FinishedLevelScene, LoadingScene, MainScene, UIScene } from './scenes';
 
 const GameEngine = () => {
   const targetRef = React.useRef<HTMLDivElement | null>(null);
@@ -12,15 +12,15 @@ const GameEngine = () => {
   React.useEffect(() => {
     if (targetRef.current) {
       const gameConfig: Types.Core.GameConfig = {
-        width: gameWidth,
-        height: gameHeight,
+        width: GAME_WIDTH,
+        height: GAME_HEIGHT,
         type: Phaser.AUTO,
-        scene: [MainScene],
+        scene: [LoadingScene, MainScene, UIScene, FinishedLevelScene],
         parent: targetRef.current,
         scale: {
-          width: gameWidth,
-          height: gameHeight,
-          mode: Scale.ScaleModes.WIDTH_CONTROLS_HEIGHT,
+          width: GAME_WIDTH,
+          height: GAME_HEIGHT,
+          mode: Scale.ScaleModes.NONE,
         },
         dom: {
           createContainer: true,
@@ -28,6 +28,7 @@ const GameEngine = () => {
         loader: {
           crossOrigin: 'use-credentials',
         },
+        antialias: false,
       };
 
       const game = new Game(gameConfig);
